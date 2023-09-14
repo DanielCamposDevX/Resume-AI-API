@@ -25,7 +25,6 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
         })
         const videoPath = video.path;
         const audioReadStream = createReadStream(videoPath);
-        try{
         const response = await openai.audio.transcriptions.create({
             file: audioReadStream,
             model: 'whisper-1',
@@ -33,10 +32,8 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
             response_format: 'json',
             temperature: 0,
             prompt,
-          })}
-          catch(err){
-            console.log(err)
-          }
+          })
+         
         
 
         const transcription = response.text
