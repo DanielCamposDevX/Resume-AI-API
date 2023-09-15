@@ -3,6 +3,8 @@ import { transcriptionControllers } from "../controllers/transcriptionController
 
 
 
-export async function createTranscriptionRoute(app: FastifyInstance) {
+export async function TranscriptionRoutes(app: FastifyInstance) {
     app.post('/videos/:videoId/transcription', transcriptionControllers.createTranscription)
 }
+
+
