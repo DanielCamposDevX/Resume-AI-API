@@ -14,7 +14,7 @@ type UserL = {
 }
 
 async function createUser(user: UserT) {
-    const userExists = userRepositories.findUser(user.email);
+    const userExists = await userRepositories.findUser(user.email);
     if (userExists === null) { throw 'already exists' };
     await userRepositories.insertUser(user);
 }
@@ -22,6 +22,7 @@ async function createUser(user: UserT) {
 
 async function login(user: UserL) {
     const exists = await userRepositories.findUser(user.email);
+    if(user.password != exists?.password){throw 'wrong password'}
     if (!exists) { throw 'not found' }
     const logged = await userRepositories.alreadyLogged(exists.id)
     if (!logged) {
