@@ -1,7 +1,9 @@
 import { prisma } from "../lib/prisma"
 import { openai } from "../lib/openai"
-import { createReadStream } from "node:fs";
+import { createReadStream, readdirSync, unlinkSync } from "node:fs";
 import { transcriptionRepositories } from "../repositories/transcriptionRepositories";
+
+
 
 export async function createTranscription(videoId: string, prompt: string) {
     const video = await transcriptionRepositories.findVideo(videoId);
@@ -18,6 +20,13 @@ export async function createTranscription(videoId: string, prompt: string) {
         })
         const transcription = response.text
         transcriptionRepositories.updateVideo(videoId, transcription)
+        const tmpFolderPath = '../../tmp';
+        const files = readdirSync(tmpFolderPath);
+
+        for (const file of files) {
+            const filePath = `${tmpFolderPath}/${file}`;
+            unlinkSync(filePath); // Delete the file
+        }
         return transcription
     }
     catch (err) {

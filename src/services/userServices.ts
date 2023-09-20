@@ -1,42 +1,25 @@
-import { userRepositories } from "../repositories/userRepositories"
-
-type UserT = {
-    id?: string,
-    name: string,
-    email: string,
-    password: string,
-    phone: string
-}
-
-type UserL = {
-    email: string,
-    password: string
-}
-
-async function createUser(user: UserT) {
-    const userExists = await userRepositories.findUser(user.email);
-    if (userExists === null) { throw 'already exists' };
-    await userRepositories.insertUser(user);
-}
+import { userRepositories } from "../repositories/userRepository";
 
 
-async function login(user: UserL) {
-    const exists = await userRepositories.findUser(user.email);
-    if(user.password != exists?.password){throw 'wrong password'}
-    if (!exists) { throw 'not found' }
-    const logged = await userRepositories.alreadyLogged(exists.id)
-    if (!logged) {
-        const login = await userRepositories.login(exists.id)
-        return login?.token
-    }
-    else {
-        return (logged.userId)
+async function userHandler(id: string) {
+    const exists = await userRepositories.userExists(id);
+    if (!exists) {
+        userRepositories.createUser(id);
     }
 }
 
+type auth = {
+    err: string
+}
+async function authHandler(id: string): Promise<auth | null> {
+    const availableTokens = await userRepositories.tokenHandler(id);
+    if (availableTokens?.err) {
+        return (availableTokens);
+    }
+    return null
+}   
 
 
 
 
-
-export const userServices = { createUser, login }
+export const userServices = { userHandler, authHandler };

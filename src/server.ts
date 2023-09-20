@@ -4,7 +4,7 @@ import { getAllPromptsRoute } from "./routes/getallprompts";
 import { uploadVideosRoute } from "./routes/uploadVideo";
 import { generateAiCompletion } from "./routes/generateAICompletion";
 import { TranscriptionRoutes } from "./routes/transcriptionRoutes";
-import { userRoutes } from "./routes/userRoutes";
+import { UserRoutes } from "./routes/userRoutes";
 
 const app = fastify()
 
@@ -17,7 +17,7 @@ app.register(getAllPromptsRoute);
 app.register(uploadVideosRoute);
 app.register(TranscriptionRoutes);
 app.register(generateAiCompletion);
-app.register(userRoutes);
+app.register(UserRoutes)
 
 
 

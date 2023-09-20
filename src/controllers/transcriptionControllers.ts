@@ -15,6 +15,7 @@ async function createTranscription(req: FastifyRequest, res: FastifyReply) {
     const { prompt } = bodySchema.parse(req.body);
     
     const transcription = await transcriptionServices.createTranscription(videoId, prompt)
+    
     res.status(200).send(transcription);
 }
 
