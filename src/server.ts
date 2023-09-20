@@ -7,8 +7,10 @@ import { TranscriptionRoutes } from "./routes/transcriptionRoutes";
 import { UserRoutes } from "./routes/userRoutes";
 
 const app = fastify()
+const port = process.env.PORT || 3000;
+const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 
-app.register(fastifyCors,{
+app.register(fastifyCors, {
     origin: '*',
 })
 
@@ -25,6 +27,7 @@ app.register(UserRoutes)
 
 
 app.listen({
+    host: host,
     port: 3333
 }).then(() => {
     console.log('Running')
