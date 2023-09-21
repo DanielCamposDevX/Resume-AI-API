@@ -1,6 +1,7 @@
 import { openai } from "../lib/openai"
 import { createReadStream, readdirSync, unlinkSync } from "node:fs";
 import { transcriptionRepositories } from "../repositories/transcriptionRepositories";
+import path from "node:path";
 
 
 
@@ -20,7 +21,7 @@ export async function createTranscription(videoId: string, prompt: string, video
         const transcription = response.text
         transcriptionRepositories.updateVideo(videoId, transcription, videoName)
 
-        const tmpFolderPath = '/home/daniel/rocketSeat/Upload.ai-API/tmp';
+        const tmpFolderPath = path.resolve(__dirname, '../../tmp');
         const files = readdirSync(tmpFolderPath);
 
         for (const file of files) {
