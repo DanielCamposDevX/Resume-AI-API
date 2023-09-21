@@ -18,9 +18,13 @@ async function updateVideo(videoId: string, transcription: string, videoName: st
         data: {
             transcription,
             name: videoName,
-            userId: userId
-        }
-    })
+            user: {
+                connect: {
+                    id: userId,
+                },
+            },
+        },
+    });
 
 }
 
