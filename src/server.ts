@@ -5,7 +5,7 @@ import { uploadVideosRoute } from "./routes/uploadVideo";
 import { generateAiCompletion } from "./routes/generateAICompletion";
 import { TranscriptionRoutes } from "./routes/transcriptionRoutes";
 import { UserRoutes } from "./routes/userRoutes";
-import { prisma } from "lib/prisma";
+import { prisma } from "./lib/prisma";
 
 
 const app = fastify()
