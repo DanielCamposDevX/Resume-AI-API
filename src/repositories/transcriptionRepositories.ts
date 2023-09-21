@@ -10,18 +10,8 @@ async function findVideo(videoId: string) {
 }
 
 
-async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string) {
-  async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string) {
-    const video = await prisma.video.findUnique({
-      where: {
-        id: videoId,
-      },
-    });
 
-    if (!video) {
-      throw new Error(`Video with ID ${videoId} not found.`);
-    }
-    
+  async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string) {
     await prisma.video.update({
       where: {
         id: videoId,
@@ -29,15 +19,11 @@ async function updateVideo(videoId: string, transcription: string, videoName: st
       data: {
         transcription,
         name: videoName,
-        user: {
-          connect: {
-            id: userId,
-          },
+        userId: userId
         },
-      },
     });
   }
-}
+
 
 
 
