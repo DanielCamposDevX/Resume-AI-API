@@ -14,7 +14,6 @@ model Video {
   transcription String?
   createdAt     DateTime @default(now())
   userId        String?
-  user          User?     @relation(fields: [userId], references: [id])
 }
 
 model Prompt {
@@ -26,7 +25,6 @@ model Prompt {
 model User {
   id       String     @id @unique
   sessions Sessions[]
-  videos   Video[]
 }
 
 model Sessions {
