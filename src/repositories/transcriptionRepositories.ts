@@ -11,15 +11,14 @@ async function findVideo(videoId: string) {
 
 
 
-async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string) {
+async function updateVideo(videoId: string, transcription: string, videoName: string) {
   await prisma.video.update({
     where: {
       id: videoId,
     },
     data: {
       transcription,
-      name: videoName,
-      createdBy: userId 
+      name: videoName
     },
   });
 }

@@ -4,7 +4,7 @@ import { transcriptionRepositories } from "../repositories/transcriptionReposito
 
 
 
-export async function createTranscription(videoId: string, prompt: string, videoName: string, userId: string) {
+export async function createTranscription(videoId: string, prompt: string, videoName: string) {
     const video = await transcriptionRepositories.findVideo(videoId);
     const videoPath = video.path;
     const audioReadStream = createReadStream(videoPath);
@@ -18,7 +18,7 @@ export async function createTranscription(videoId: string, prompt: string, video
             prompt,
         })
         const transcription = response.text
-        transcriptionRepositories.updateVideo(videoId, transcription, videoName, userId)
+        transcriptionRepositories.updateVideo(videoId, transcription, videoName)
 
         const tmpFolderPath = '/home/daniel/rocketSeat/Upload.ai-API/tmp';
         const files = readdirSync(tmpFolderPath);
