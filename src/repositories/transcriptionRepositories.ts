@@ -11,7 +11,7 @@ async function findVideo(videoId: string) {
 
 
 
-async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string | null) {
+async function updateVideo(videoId: string, transcription: string, videoName: string, userId: string) {
   await prisma.video.update({
     where: {
       id: videoId,
@@ -19,7 +19,7 @@ async function updateVideo(videoId: string, transcription: string, videoName: st
     data: {
       transcription,
       name: videoName,
-      userId: userId ? { set: userId } : undefined, // Set the userId if it's not null
+      createdBy: userId 
     },
   });
 }

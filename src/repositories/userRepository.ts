@@ -43,7 +43,7 @@ async function tokenHandler(userId: string) {
 async function listVideos(id:string) {
     const videos = await prisma.video.findMany({
         where:{
-            userId:id
+            createdBy:id
         }
     })
     return videos

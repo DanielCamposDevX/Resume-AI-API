@@ -13,7 +13,7 @@ model Video {
   path          String
   transcription String?
   createdAt     DateTime @default(now())
-  userId        String?
+  createdBy     String?
 }
 
 model Prompt {
