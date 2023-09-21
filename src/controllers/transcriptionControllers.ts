@@ -10,12 +10,14 @@ async function createTranscription(req: FastifyRequest, res: FastifyReply) {
     })
     const bodySchema = z.object({
         prompt: z.string(),
+        videoName: z.string(),
+        userId: z.string()
     })
     const { videoId } = paramsSchema.parse(req.params);
-    const { prompt } = bodySchema.parse(req.body);
-    
-    const transcription = await transcriptionServices.createTranscription(videoId, prompt)
-    
+    const { prompt, videoName, userId } = bodySchema.parse(req.body);
+
+    const transcription = await transcriptionServices.createTranscription(videoId, prompt, videoName, userId)
+
     res.status(200).send(transcription);
 }
 

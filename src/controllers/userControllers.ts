@@ -25,14 +25,22 @@ async function authUser(req: FastifyRequest, res: FastifyReply) {
     if (!id) { res.code(404).send("ID NOT PROVIDED") };
 
     const available = await userServices.authHandler(id)
-    if(available?.err){
+    if (available?.err) {
         return res.code(401).send(available.err)
     }
     return res.code(201).send('Criado')
 }
 
 
+async function videobyId(req: FastifyRequest, res: FastifyReply) {
+    const paramsSchema = z.object({
+        userId: z.string(),
+    })
+    const { userId } = paramsSchema.parse(req.params);
+    const videos = await userServices.getUserbyId(userId);
+    res.send(videos);
+}
 
 
 
-export const userControllers = { createUser, authUser };
+export const userControllers = { createUser, authUser, videobyId };

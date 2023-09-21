@@ -19,7 +19,11 @@ async function authHandler(id: string): Promise<auth | null> {
     return null
 }   
 
+async function getUserbyId(id:string) {
+    const videos = await userRepositories.listVideos(id)
+    return videos
+}
 
 
 
-export const userServices = { userHandler, authHandler };
+export const userServices = { userHandler, authHandler,getUserbyId };

@@ -28,7 +28,7 @@ async function tokenHandler(userId: string) {
             userId: userId
         }
     });
-    if (existingSessions < 2) {
+    if (existingSessions < 3) {
         await prisma.sessions.create({
             data: {
                 userId: userId
@@ -40,4 +40,14 @@ async function tokenHandler(userId: string) {
 }
 
 
-export const userRepositories = { userExists, tokenHandler, createUser }
+async function listVideos(id:string) {
+    const videos = await prisma.video.findMany({
+        where:{
+            userId:id
+        }
+    })
+    return videos
+}
+
+
+export const userRepositories = { userExists, tokenHandler, createUser,listVideos }

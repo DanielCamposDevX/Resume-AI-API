@@ -9,10 +9,12 @@ datasource db {
 
 model Video {
   id            String   @id @default(uuid())
-  name          String
+  name          String?
   path          String
   transcription String?
   createdAt     DateTime @default(now())
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
 }
 
 model Prompt {
@@ -22,13 +24,14 @@ model Prompt {
 }
 
 model User {
-  id String @id @unique
+  id       String     @id @unique
   sessions Sessions[]
+  videos   Video[]
 }
 
 model Sessions {
-  id      String @id @default(uuid())
-  user User @relation(fields: [userId],references: [id])
-  userId  String
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
   lastChange DateTime @default(now())
 }
